@@ -1,21 +1,24 @@
+# dispositivos/views.py
 from django.shortcuts import render
 
-# Create your views here.
 
-# dispositivos/views.py
-from django.http import HttpResponse
 def inicio(request):
- return HttpResponse(
-"<h1>EcoEnergy</h1>"
-"<p>Back End en funcionamiento</p>"
-)
+  contexto = {
+    "sistema": "EcoEnergy",
+    "mensaje": "Monitoreo energético responsable",
+    "asignatura": "Programación Back End",
+  }
+  return render(request,"dispositivos/inicio.html",contexto,)
 
 # dispositivos/views.py
-def dispositivos_zona(request, zona_id):
-  if zona_id != 3:
-   return HttpResponse(
-"Zona no encontrada", status=404
-)
-  return HttpResponse(
-f"Dispositivos de la zona {zona_id}"
-)
+def catalogo(request):
+  dispositivos = [
+    {"nombre": "Medidor inteligente", "estado": "Activo"},
+    {"nombre": "Sensor de temperatura", "estado": "Activo"},
+    {"nombre": "Climatizador", "estado": "Revisión"},
+  ]
+
+  return render(request,"dispositivos/catalogo.html",{"dispositivos": dispositivos},)
+
+
+#crear un metodo que muestre un dispositivo por ruta que seria dispositivo/1 deberia cargar un dispositivo y si es distinto a 1 dispositivo no encontrado
