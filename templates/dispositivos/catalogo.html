@@ -1,13 +1,67 @@
 <!-- templates/dispositivos/catalogo.html -->
 {% extends "base.html" %}
-{% block title %}Dispositivos | EcoEnergy{% endblock %}
+
 {% block content %}
-<h1>Dispositivos</h1>
-<ul>
-{% for dispositivo in dispositivos %}
-<li>{{ dispositivo.nombre }} — {{ dispositivo.estado }}</li>
-{% empty %}
-<li>No existen dispositivos disponibles.</li>
-{% endfor %}
-</ul>
+<div class="container py-4">
+    <h1 class="mb-4">Catálogo de Dispositivos - EcoEnergy</h1>
+
+    <!-- Tarjetas de resumen -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Total de Dispositivos</h5>
+                    <p class="display-6 fw-bold text-primary mb-0">{{ total }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm border-success">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Dispositivos Activos</h5>
+                    <p class="display-6 fw-bold text-success mb-0">{{ total_activos }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla responsive -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {% if dispositivos %}
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th>Consumo (kWh)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dispositivo in dispositivos %}
+                            <tr>
+                                <td class="fw-semibold">{{ dispositivo.nombre }}</td>
+                                <td>
+                                    {% if dispositivo.estado == 'Activo' %}
+                                        <span class="badge bg-success">Activo</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ dispositivo.estado }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ dispositivo.consumo_kwh }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <!-- Estado vacío -->
+                <div class="text-center py-5">
+                    <p class="text-muted fs-5 mb-0">No hay dispositivos registrados en el sistema.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
