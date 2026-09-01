@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-secondary mb-0">DETALLE DE ZONA: <span class="text-dark">{{ zona.nombre }}</span></h2>
+    <a href="{% url 'zonas_listado' %}" class="btn btn-secondary btn-sm">← Volver al listado</a>
+</div>
+
+<!-- Métricas de la Zona -->
+<div class="row g-3 mb-4 text-center">
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm border-0">
+            <span class="text-muted small">Límite</span>
+            <span class="fs-5 fw-bold">{{ zona.limite_kwh }} kWh</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm border-0">
+            <span class="text-muted small">Consumo total</span>
+            <span class="fs-5 fw-bold">{{ consumo_total }} kWh</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm border-0">
+            <span class="text-muted small">Dispositivos</span>
+            <span class="fs-5 fw-bold">{{ cantidad_dispositivos }}</span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card p-3 shadow-sm border-0">
+            <span class="text-muted small">Estado</span>
+            <div>
+                {% if estado == "ALERTA" %}
+                    <span class="badge bg-danger fs-6 px-3 py-2">⚠️ ALERTA</span>
+                {% else %}
+                    <span class="badge bg-success fs-6 px-3 py-2">✓ NORMAL</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla de Dispositivos -->
+<h4 class="mb-3">Dispositivos Asociados</h4>
+{% if dispositivos %}
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-striped table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Dispositivo</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col" class="text-end">Consumo (kWh)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in dispositivos %}
+                <tr>
+                    <td>{{ d.nombre }}</td>
+                    <td>{{ d.categoria }}</td>
+                    <td class="text-end fw-semibold">{{ d.consumo_kwh }} kWh</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <!-- Estado alternativo CA-07 -->
+    <div class="alert alert-warning" role="alert">
+        Esta zona no tiene dispositivos.
+    </div>
+{% endif %}
+{% endblock %}

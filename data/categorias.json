@@ -1,0 +1,5 @@
+[
+    {"id": 1, "nombre": "Iluminación", "descripcion": "Sistemas de iluminación LED e industrial"},
+    {"id": 2, "nombre": "Climatización", "descripcion": "Equipos de aire acondicionado y calefacción"},
+    {"id": 3, "nombre": "Maquinaria", "descripcion": "Motores, bombas y maquinaria pesada"}
+  ]

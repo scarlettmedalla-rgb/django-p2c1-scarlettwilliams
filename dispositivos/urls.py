@@ -1,11 +1,8 @@
-# dispositivos/urls.py
 from django.urls import path
 from . import views
 
-app_name = "dispositivos"
-
 urlpatterns = [
-    path("", views.inicio, name="inicio"), 
-    
-    path("dispositivos/", views.catalogo, name="catalogo")
+    path('', views.listar_zonas, name='inicio'),
+    path('zonas/', views.listar_zonas, name='zonas_listado'),
+    path('zonas/<int:zona_id>/', views.detalle_zona, name='zona_detalle'),
 ]
